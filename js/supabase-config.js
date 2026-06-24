@@ -11,9 +11,9 @@ window.HUBSPOT_PORTAL_ID = '148768511';
 window.HUBSPOT_FORM_ID = '89cf5126-8ff8-4fad-923b-129a1ef3678d';
 
 // Путь сайта на GitHub Pages (обязательно для OAuth).
-// Репозиторий ZinaWEB → /ZinaWEB/
+// Репозиторий Gazon → /Gazon/
 // Для localhost оставьте пустым: ''
-window.SITE_BASE_PATH = '/ZinaWEB/';
+window.SITE_BASE_PATH = '/Gazon/';
 
 // Имя Edge Function для AI-чата (смотри URL в Supabase → Edge Functions)
 window.AI_EDGE_FUNCTION = 'quick-worker';
