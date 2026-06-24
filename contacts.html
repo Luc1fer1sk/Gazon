@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакты — ЗелёныйДвор</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo"><span class="logo__icon">🌿</span><span class="logo__text">Зелёный<span>Двор</span></span></a>
+      <nav class="nav">
+        <a href="catalog.html" class="nav__link">Каталог</a>
+        <a href="tablets.html" class="nav__link">Таблетки</a>
+        <a href="lawn.html" class="nav__link">Газон</a>
+        <a href="about.html" class="nav__link">О нас</a>
+        <a href="contacts.html" class="nav__link">Контакты</a>
+      </nav>
+      <div class="header__actions">
+        <a href="cart.html" class="btn-icon cart-btn" aria-label="Корзина"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-btn__badge">3</span></a>
+        <div id="auth-slot" class="auth-slot"></div>
+      </div>
+      <button class="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <section class="page-banner">
+    <div class="page-banner__bg"><img src="images/page-banner.jpg" alt="Контакты"></div>
+    <div class="page-banner__overlay"></div>
+    <div class="container">
+      <nav class="breadcrumbs"><a href="index.html">Главная</a> <span>/</span> <span>Контакты</span></nav>
+      <h1>Контакты</h1>
+      <p>Свяжитесь с нами — ответим в течение часа</p>
+    </div>
+  </section>
+
+  <section class="contacts-page">
+    <div class="container">
+      <div class="contacts-grid">
+        <div class="contact-info">
+          <div class="contact-card">
+            <h3>📞 Телефон</h3>
+            <a href="tel:+78001234567">8 (800) 123-45-67</a>
+            <p>Бесплатно по России, ежедневно 9:00–21:00</p>
+          </div>
+          <div class="contact-card">
+            <h3>✉️ E-mail</h3>
+            <a href="mailto:info@zelenydvor.ru">info@zelenydvor.ru</a>
+            <p>Для заказов и консультаций</p>
+          </div>
+          <div class="contact-card">
+            <h3>📍 Адрес склада</h3>
+            <p>Москва, ул. Садовая, 12</p>
+            <p>Самовывоз: пн–сб 10:00–18:00</p>
+          </div>
+          <div class="contact-card">
+            <h3>🚚 Доставка</h3>
+            <p>По Москве — 1 день, по России — 1–3 дня</p>
+            <p>Бесплатно при заказе от 5 000 ₽</p>
+          </div>
+        </div>
+        <form class="contact-form" onsubmit="return false;">
+          <h2>Напишите нам</h2>
+          <div class="form-group">
+            <label for="name">Ваше имя</label>
+            <input type="text" id="name" placeholder="Иван" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" placeholder="ivan@mail.ru" required>
+          </div>
+          <div class="form-group">
+            <label for="topic">Тема</label>
+            <select id="topic">
+              <option>Консультация по газону</option>
+              <option>Подбор таблеток</option>
+              <option>Доставка и оплата</option>
+              <option>Другое</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Сообщение</label>
+            <textarea id="message" placeholder="Опишите ваш участок и задачу..."></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary btn--lg" style="width: 100%;">Отправить</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand"><a href="index.html" class="logo"><span class="logo__icon">🌿</span><span class="logo__text">Зелёный<span>Двор</span></span></a></div>
+      <div class="footer__col"><h4>Каталог</h4><a href="catalog.html">Каталог</a><a href="tablets.html">Таблетки</a></div>
+      <div class="footer__col"><h4>Контакты</h4><a href="tel:+78001234567">8 (800) 123-45-67</a></div>
+    </div>
+    <div class="container footer__bottom"><p>© 2026 ЗелёныйДвор.</p></div>
+  </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/ai-knowledge.js"></script>
+  <script src="js/ai-agent.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

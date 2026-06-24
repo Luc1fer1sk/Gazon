@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Рулонный газон «Премиум» — ЗелёныйДвор</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo"><span class="logo__icon">🌿</span><span class="logo__text">Зелёный<span>Двор</span></span></a>
+      <nav class="nav">
+        <a href="catalog.html" class="nav__link">Каталог</a>
+        <a href="tablets.html" class="nav__link">Таблетки</a>
+        <a href="lawn.html" class="nav__link">Газон</a>
+        <a href="about.html" class="nav__link">О нас</a>
+        <a href="contacts.html" class="nav__link">Контакты</a>
+      </nav>
+      <div class="header__actions">
+        <a href="cart.html" class="btn-icon cart-btn" aria-label="Корзина"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-btn__badge">3</span></a>
+        <div id="auth-slot" class="auth-slot"></div>
+      </div>
+      <button class="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <section class="product-page">
+    <div class="container">
+      <nav class="breadcrumbs" style="margin-bottom: 32px; color: var(--color-text-muted);">
+        <a href="index.html">Главная</a> <span>/</span> <a href="lawn.html">Газон</a> <span>/</span> <span>Рулонный газон «Премиум»</span>
+      </nav>
+      <div class="product-detail">
+        <div class="product-detail__gallery">
+          <div class="product-detail__main-img"><img src="images/product-lawn-premium.jpg" alt="Рулонный газон Премиум" id="mainImg"></div>
+          <div class="product-detail__thumbs">
+            <button class="product-detail__thumb product-detail__thumb--active"><img src="images/product-lawn-premium.jpg" alt=""></button>
+            <button class="product-detail__thumb"><img src="images/hero-lawn.jpg" alt=""></button>
+            <button class="product-detail__thumb"><img src="images/page-banner.jpg" alt=""></button>
+          </div>
+        </div>
+        <div class="product-detail__info">
+          <span class="product-detail__brand">LawnPro</span>
+          <h1 class="product-detail__title">Рулонный газон «Премиум» 1 м²</h1>
+          <div class="product-detail__rating">★★★★★ <span>4.9 (312 отзывов)</span></div>
+          <div class="product-detail__price-block">
+            <span class="product-detail__price">450 ₽</span>
+            <span style="color: var(--color-text-muted);">за 1 м²</span>
+          </div>
+          <p class="product-detail__desc">Плотный рулонный газон премиум-класса из смеси мятлика и овсяницы. Идеально подходит для частных участков, дач и ландшафтного дизайна. Готов к укладке сразу после доставки — густая зелёная трава без проплешин.</p>
+          <div class="product-detail__actions">
+            <div class="qty-input">
+              <button type="button" aria-label="Уменьшить">−</button>
+              <input type="number" value="10" min="1">
+              <button type="button" aria-label="Увеличить">+</button>
+            </div>
+            <button type="button" class="btn btn--primary btn--lg btn-add-cart" data-product-id="lawn-premium">В корзину</button>
+            <a href="contacts.html" class="btn btn--outline btn--lg">Консультация</a>
+          </div>
+          <div class="product-detail__specs">
+            <h3>Характеристики</h3>
+            <div class="spec-row"><span>Тип</span><span>Рулонный</span></div>
+            <div class="spec-row"><span>Толщина дерна</span><span>2–3 см</span></div>
+            <div class="spec-row"><span>Размер рулона</span><span>2 × 0,5 м (1 м²)</span></div>
+            <div class="spec-row"><span>Освещённость</span><span>Солнечные участки</span></div>
+            <div class="spec-row"><span>Морозостойкость</span><span>до −30 °C</span></div>
+            <div class="spec-row"><span>Доставка</span><span>1–3 дня</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="products products--alt">
+    <div class="container">
+      <h2 class="section-title">Похожие товары</h2>
+      <div class="products__grid" style="margin-top: 32px;">
+        <article class="product-card">
+          <a href="product-sport.html" class="product-card__link"><div class="product-card__img"><img src="images/product-lawn-sport.jpg" alt=""></div></a>
+          <div class="product-card__body"><span class="product-card__brand">SportGrass</span><h3 class="product-card__title"><a href="product-sport.html">Спортивный газон 1 м²</a></h3><div class="product-card__footer"><div class="product-card__price"><span class="price-current">580 ₽/м²</span></div><button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="sport">В корзину</button></div></div>
+        </article>
+        <article class="product-card">
+          <a href="product-shadow.html" class="product-card__link"><div class="product-card__img"><img src="images/product-lawn-shadow.jpg" alt=""></div></a>
+          <div class="product-card__body"><span class="product-card__brand">ShadowLawn</span><h3 class="product-card__title"><a href="product-shadow.html">Теневыносливый газон 1 м²</a></h3><div class="product-card__footer"><div class="product-card__price"><span class="price-current">520 ₽/м²</span></div><button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="shadow">В корзину</button></div></div>
+        </article>
+        <article class="product-card">
+          <a href="product-npk.html" class="product-card__link"><div class="product-card__img"><img src="images/product-npk.jpg" alt=""></div></a>
+          <div class="product-card__body"><span class="product-card__brand">BioGrow</span><h3 class="product-card__title"><a href="product-npk.html">Таблетки NPK 12-6-8</a></h3><div class="product-card__footer"><div class="product-card__price"><span class="price-current">790 ₽</span></div><button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="npk">В корзину</button></div></div>
+        </article>
+        <article class="product-card">
+          <a href="product-seeds.html" class="product-card__link"><div class="product-card__img"><img src="images/product-seeds.jpg" alt=""></div></a>
+          <div class="product-card__body"><span class="product-card__brand">SeedMaster</span><h3 class="product-card__title"><a href="product-seeds.html">Семена «Универсал» 1 кг</a></h3><div class="product-card__footer"><div class="product-card__price"><span class="price-current">1 260 ₽</span></div><button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="seeds">В корзину</button></div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand"><a href="index.html" class="logo"><span class="logo__icon">🌿</span><span class="logo__text">Зелёный<span>Двор</span></span></a></div>
+      <div class="footer__col"><h4>Каталог</h4><a href="lawn.html">Газон</a><a href="tablets.html">Таблетки</a></div>
+      <div class="footer__col"><h4>Контакты</h4><a href="tel:+78001234567">8 (800) 123-45-67</a></div>
+    </div>
+    <div class="container footer__bottom"><p>© 2026 ЗелёныйДвор.</p></div>
+  </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/ai-knowledge.js"></script>
+  <script src="js/ai-agent.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.querySelectorAll('.product-detail__thumb').forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        document.querySelectorAll('.product-detail__thumb').forEach(t => t.classList.remove('product-detail__thumb--active'));
+        thumb.classList.add('product-detail__thumb--active');
+        document.getElementById('mainImg').src = thumb.querySelector('img').src;
+      });
+    });
+  </script>
+</body>
+</html>

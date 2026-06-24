@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вход... — ЗелёныйДвор</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <section class="auth-page">
+    <div class="container">
+      <div class="auth-card auth-card--center">
+        <div class="auth-spinner"></div>
+        <h1>Завершаем вход...</h1>
+        <p class="auth-card__subtitle" id="callback-status">Проверяем авторизацию</p>
+        <div id="auth-error" class="auth-alert" hidden></div>
+        <a href="login.html" id="retry-link" class="btn btn--primary" hidden>Попробовать снова</a>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const statusEl = document.getElementById('callback-status');
+      const errorEl = document.getElementById('auth-error');
+      const retryLink = document.getElementById('retry-link');
+
+      if (!Auth.isConfigured()) {
+        statusEl.textContent = 'Supabase не настроен';
+        Auth.showError(errorEl, 'Заполните js/supabase-config.js');
+        retryLink.hidden = false;
+        return;
+      }
+
+      const client = Auth.getClient();
+
+      try {
+        const { data: { session }, error } = await client.auth.getSession();
+
+        if (error) throw error;
+
+        if (session) {
+          window.location.href = 'account.html';
+          return;
+        }
+
+        const hashParams = new URLSearchParams(window.location.hash.substring(1));
+        const queryParams = new URLSearchParams(window.location.search);
+        const code = queryParams.get('code');
+
+        if (code) {
+          const { error: exchangeError } = await client.auth.exchangeCodeForSession(code);
+          if (exchangeError) throw exchangeError;
+          window.location.href = 'account.html';
+          return;
+        }
+
+        if (hashParams.get('access_token')) {
+          await new Promise(r => setTimeout(r, 500));
+          const { data: { session: s2 } } = await client.auth.getSession();
+          if (s2) {
+            window.location.href = 'account.html';
+            return;
+          }
+        }
+
+        throw new Error('Сессия не найдена. Попробуйте войти снова.');
+      } catch (err) {
+        statusEl.textContent = 'Ошибка авторизации';
+        Auth.showError(errorEl, err.message || 'Не удалось завершить вход');
+        retryLink.hidden = false;
+      }
+    });
+  </script>
+</body>
+</html>

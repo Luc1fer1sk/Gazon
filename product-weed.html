@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Таблетки WeedStop — ЗелёныйДвор</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header"><div class="container header__inner"><a href="index.html" class="logo"><span class="logo__icon">🌿</span><span class="logo__text">Зелёный<span>Двор</span></span></a><nav class="nav"><a href="catalog.html" class="nav__link">Каталог</a><a href="tablets.html" class="nav__link">Таблетки</a><a href="lawn.html" class="nav__link">Газон</a><a href="about.html" class="nav__link">О нас</a><a href="contacts.html" class="nav__link">Контакты</a></nav><div class="header__actions"><a href="cart.html" class="btn-icon cart-btn" aria-label="Корзина"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-btn__badge">3</span></a><div id="auth-slot" class="auth-slot"></div></div><button class="burger" aria-label="Меню"><span></span><span></span><span></span></button></div></header>
+  <section class="product-page"><div class="container">
+    <nav class="breadcrumbs" style="margin-bottom:32px;color:var(--color-text-muted)"><a href="index.html">Главная</a> <span>/</span> <a href="tablets.html">Таблетки</a> <span>/</span> <span>WeedStop</span></nav>
+    <div class="product-detail">
+      <div class="product-detail__gallery"><div class="product-detail__main-img"><img src="images/product-weed.jpg" alt="WeedStop"></div></div>
+      <div class="product-detail__info">
+        <span class="product-detail__brand">GreenMax</span>
+        <h1 class="product-detail__title">Таблетки от сорняков WeedStop</h1>
+        <div class="product-detail__rating">★★★★☆ <span>4.7 (89 отзывов)</span></div>
+        <div class="product-detail__price-block"><span class="product-detail__price">1 250 ₽</span></div>
+        <p class="product-detail__desc">Системные таблетки для защиты газона от однолетних и многолетних сорняков. Действуют через корневую систему, не повреждая газонную траву. Одна упаковка на 100 м².</p>
+        <div class="product-detail__actions"><div class="qty-input"><button>−</button><input type="number" value="1" min="1"><button>+</button></div><button type="button" class="btn btn--primary btn--lg btn-add-cart" data-product-id="weed">В корзину</button></div>
+        <div class="product-detail__specs"><h3>Характеристики</h3><div class="spec-row"><span>Количество</span><span>30 таблеток</span></div><div class="spec-row"><span>Площадь</span><span>до 100 м²</span></div><div class="spec-row"><span>Действие</span><span>до 3 месяцев</span></div></div>
+      </div>
+    </div>
+  </div></section>
+  <footer class="footer"><div class="container footer__bottom"><p>© 2026 ЗелёныйДвор.</p></div></footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/ai-knowledge.js"></script>
+  <script src="js/ai-agent.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

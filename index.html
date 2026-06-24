@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ЗелёныйДвор — Маркетплейс таблеток и газона</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">
+        <span class="logo__icon">🌿</span>
+        <span class="logo__text">Зелёный<span>Двор</span></span>
+      </a>
+      <nav class="nav">
+        <a href="catalog.html" class="nav__link">Каталог</a>
+        <a href="tablets.html" class="nav__link">Таблетки</a>
+        <a href="lawn.html" class="nav__link">Газон</a>
+        <a href="about.html" class="nav__link">О нас</a>
+        <a href="contacts.html" class="nav__link">Контакты</a>
+      </nav>
+      <div class="header__actions">
+        <a href="cart.html" class="btn-icon cart-btn" aria-label="Корзина">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-btn__badge">3</span>
+        </a>
+        <div id="auth-slot" class="auth-slot"></div>
+      </div>
+      <button class="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <span class="badge">Маркетплейс №1 для вашего газона</span>
+        <h1 class="hero__title">Идеальный газон<br>начинается <em>здесь</em></h1>
+        <p class="hero__text">Таблетки для удобрения, рулонный и семенной газон от проверенных производителей. Доставка по всей России за 1–3 дня.</p>
+        <div class="hero__buttons">
+          <a href="catalog.html" class="btn btn--primary btn--lg">Смотреть каталог</a>
+          <a href="about.html" class="btn btn--outline btn--lg">Как это работает</a>
+        </div>
+        <div class="hero__stats">
+          <div class="stat"><strong>2 400+</strong><span>товаров</span></div>
+          <div class="stat"><strong>18 000+</strong><span>клиентов</span></div>
+          <div class="stat"><strong>4.9 ★</strong><span>рейтинг</span></div>
+        </div>
+      </div>
+      <div class="hero__visual">
+        <a href="product-lawn.html" class="hero__card hero__card--main">
+          <div class="hero__card-img"><img src="images/hero-lawn.jpg" alt="Рулонный газон Премиум"></div>
+          <div class="hero__card-info">
+            <span class="hero__card-tag">Хит продаж</span>
+            <h3>Рулонный газон «Премиум»</h3>
+            <p>от 450 ₽/м²</p>
+          </div>
+        </a>
+        <a href="product-npk.html" class="hero__card hero__card--float">
+          <div class="hero__card-img"><img src="images/hero-tablets.jpg" alt="Таблетки BioGrow"></div>
+          <div class="hero__card-info">
+            <span class="hero__card-tag">−20%</span>
+            <h3>Таблетки BioGrow NPK</h3>
+            <p>790 ₽</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="hero__wave">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,50 1440,40 L1440,80 L0,80 Z" fill="var(--color-bg)"/></svg>
+    </div>
+  </section>
+
+  <section class="categories">
+    <div class="container">
+      <h2 class="section-title">Категории товаров</h2>
+      <div class="categories__grid">
+        <a href="tablets.html" class="category-card category-card--tablets">
+          <div class="category-card__img"><img src="images/category-tablets.jpg" alt="Таблетки для газона"></div>
+          <h3>Таблетки</h3>
+          <p>Удобрения, стимуляторы роста, защита от вредителей</p>
+          <span class="category-card__count">840 товаров →</span>
+        </a>
+        <a href="lawn.html" class="category-card category-card--lawn">
+          <div class="category-card__img"><img src="images/category-lawn.jpg" alt="Газон"></div>
+          <h3>Газон</h3>
+          <p>Рулонный, семенной, спортивный и декоративный</p>
+          <span class="category-card__count">620 товаров →</span>
+        </a>
+        <a href="catalog.html" class="category-card category-card--tools">
+          <div class="category-card__img"><img src="images/category-tools.jpg" alt="Инструменты"></div>
+          <h3>Инструменты</h3>
+          <p>Косилки, аэраторы, разбрызгиватели и полив</p>
+          <span class="category-card__count">380 товаров →</span>
+        </a>
+        <a href="catalog.html" class="category-card category-card--care">
+          <div class="category-card__img"><img src="images/category-care.jpg" alt="Уход за газоном"></div>
+          <h3>Уход</h3>
+          <p>Грунты, мульча, средства от сорняков</p>
+          <span class="category-card__count">560 товаров →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="products">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Таблетки для газона</h2>
+          <p class="section-subtitle">Эффективное питание и защита в удобной форме</p>
+        </div>
+        <a href="tablets.html" class="link-arrow">Все таблетки →</a>
+      </div>
+      <div class="products__grid">
+        <article class="product-card">
+          <div class="product-card__badge product-card__badge--sale">−20%</div>
+          <a href="product-npk.html" class="product-card__link">
+            <div class="product-card__img"><img src="images/product-npk.jpg" alt="Таблетки NPK 12-6-8"></div>
+          </a>
+          <div class="product-card__body">
+            <span class="product-card__brand">BioGrow</span>
+            <h3 class="product-card__title"><a href="product-npk.html">Таблетки удобрения NPK 12-6-8</a></h3>
+            <div class="product-card__rating">★★★★★ <span>4.9 (128)</span></div>
+            <div class="product-card__footer">
+              <div class="product-card__price"><span class="price-old">990 ₽</span><span class="price-current">790 ₽</span></div>
+              <button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="npk">В корзину</button>
+            </div>
+          </div>
+        </article>
+        <article class="product-card">
+          <div class="product-card__badge product-card__badge--hit">Хит</div>
+          <a href="product-weed.html" class="product-card__link">
+            <div class="product-card__img"><img src="images/product-weed.jpg" alt="Таблетки WeedStop"></div>
+          </a>
+          <div class="product-card__body">
+            <span class="product-card__brand">GreenMax</span>
+            <h3 class="product-card__title"><a href="product-weed.html">Таблетки от сорняков WeedStop</a></h3>
+            <div class="product-card__rating">★★★★☆ <span>4.7 (89)</span></div>
+            <div class="product-card__footer">
+              <div class="product-card__price"><span class="price-current">1 250 ₽</span></div>
+              <button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="weed">В корзину</button>
+            </div>
+          </div>
+        </article>
+        <article class="product-card">
+          <a href="product-root.html" class="product-card__link">
+            <div class="product-card__img"><img src="images/product-root.jpg" alt="Стимулятор Root+"></div>
+          </a>
+          <div class="product-card__body">
+            <span class="product-card__brand">TerraVita</span>
+            <h3 class="product-card__title"><a href="product-root.html">Стимулятор корнеобразования Root+</a></h3>
+            <div class="product-card__rating">★★★★★ <span>5.0 (54)</span></div>
+            <div class="product-card__footer">
+              <div class="product-card__price"><span class="price-current">650 ₽</span></div>
+              <button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="root">В корзину</button>
+            </div>
+          </div>
+        </article>
+        <article class="product-card">
+          <div class="product-card__badge product-card__badge--new">Новинка</div>
+          <a href="product-bio.html" class="product-card__link">
+            <div class="product-card__img"><img src="images/product-bio.jpg" alt="Bio-Active таблетки"></div>
+          </a>
+          <div class="product-card__body">
+            <span class="product-card__brand">EcoLawn</span>
+            <h3 class="product-card__title"><a href="product-bio.html">Органические таблетки Bio-Active</a></h3>
+            <div class="product-card__rating">★★★★☆ <span>4.6 (31)</span></div>
+            <div class="product-card__footer">
+              <div class="product-card__price"><span class="price-current">1 100 ₽</span></div>
+              <button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="bio">В корзину</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="products products--alt">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Газон</h2>
+          <p class="section-subtitle">Рулонный и семенной — для любого участка</p>
+        </div>
+        <a href="lawn.html" class="link-arrow">Весь газон →</a>
+      </div>
+      <div class="products__grid">
+        <article class="product-card">
+          <div class="product-card__badge product-card__badge--hit">Хит</div>
+          <a href="product-lawn.html" class="product-card__link">
+            <div class="product-card__img"><img src="images/product-lawn-premium.jpg" alt="Рулонный газон Премиум"></div>
+          </a>
+          <div class="product-card__body">
+            <span class="product-card__brand">LawnPro</span>
+            <h3 class="product-card__title"><a href="product-lawn.html">Рулонный газон «Премиум» 1 м²</a></h3>
+            <div class="product-card__rating">★★★★★ <span>4.9 (312)</span></div>
+            <div class="product-card__footer">
+              <div class="product-card__price"><span class="price-current">450 ₽/м²</span></div>
+              <button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="lawn-premium">В корзину</button>
+            </div>
+          </div>
+        </article>
+        <article class="product-card">
+          <a href="product-sport.html" class="product-card__link">
+            <div class="product-card__img"><img src="images/product-lawn-sport.jpg" alt="Спортивный газон"></div>
+          </a>
+          <div class="product-card__body">
+            <span class="product-card__brand">SportGrass</span>
+            <h3 class="product-card__title"><a href="product-sport.html">Спортивный газон рулонный 1 м²</a></h3>
+            <div class="product-card__rating">★★★★★ <span>4.8 (97)</span></div>
+            <div class="product-card__footer">
+              <div class="product-card__price"><span class="price-current">580 ₽/м²</span></div>
+              <button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="sport">В корзину</button>
+            </div>
+          </div>
+        </article>
+        <article class="product-card">
+          <div class="product-card__badge product-card__badge--sale">−10%</div>
+          <a href="product-seeds.html" class="product-card__link">
+            <div class="product-card__img"><img src="images/product-seeds.jpg" alt="Семена газона"></div>
+          </a>
+          <div class="product-card__body">
+            <span class="product-card__brand">SeedMaster</span>
+            <h3 class="product-card__title"><a href="product-seeds.html">Семена газона «Универсал» 1 кг</a></h3>
+            <div class="product-card__rating">★★★★☆ <span>4.5 (76)</span></div>
+            <div class="product-card__footer">
+              <div class="product-card__price"><span class="price-old">1 400 ₽</span><span class="price-current">1 260 ₽</span></div>
+              <button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="seeds">В корзину</button>
+            </div>
+          </div>
+        </article>
+        <article class="product-card">
+          <a href="product-shadow.html" class="product-card__link">
+            <div class="product-card__img"><img src="images/product-lawn-shadow.jpg" alt="Теневыносливый газон"></div>
+          </a>
+          <div class="product-card__body">
+            <span class="product-card__brand">ShadowLawn</span>
+            <h3 class="product-card__title"><a href="product-shadow.html">Теневыносливый газон рулонный 1 м²</a></h3>
+            <div class="product-card__rating">★★★★☆ <span>4.6 (43)</span></div>
+            <div class="product-card__footer">
+              <div class="product-card__price"><span class="price-current">520 ₽/м²</span></div>
+              <button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="shadow">В корзину</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <h2 class="section-title section-title--center">Почему выбирают нас</h2>
+      <div class="features__grid">
+        <div class="feature-card"><div class="feature-card__icon">🚚</div><h3>Быстрая доставка</h3><p>Доставим заказ за 1–3 дня по всей России. Бесплатно от 5 000 ₽</p></div>
+        <div class="feature-card"><div class="feature-card__icon">✅</div><h3>Гарантия качества</h3><p>Все товары сертифицированы. Возврат в течение 14 дней</p></div>
+        <div class="feature-card"><div class="feature-card__icon">💬</div><h3>Консультация эксперта</h3><p>Поможем подобрать таблетки и газон под ваш участок бесплатно</p></div>
+        <div class="feature-card"><div class="feature-card__icon">💳</div><h3>Удобная оплата</h3><p>Картой, СБП, наличными при получении или в рассрочку</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <div class="container newsletter__inner">
+      <div class="newsletter__content">
+        <h2>Скидка 10% на первый заказ</h2>
+        <p>Подпишитесь на рассылку и получите промокод на таблетки или газон</p>
+      </div>
+      <form class="newsletter__form" onsubmit="return false;">
+        <input type="email" placeholder="Ваш e-mail" class="newsletter__input" required>
+        <button type="submit" class="btn btn--primary">Получить скидку</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="logo"><span class="logo__icon">🌿</span><span class="logo__text">Зелёный<span>Двор</span></span></a>
+        <p>Маркетплейс таблеток и газона для идеального двора и сада.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Каталог</h4>
+        <a href="tablets.html">Таблетки</a>
+        <a href="lawn.html">Газон</a>
+        <a href="catalog.html">Весь каталог</a>
+      </div>
+      <div class="footer__col">
+        <h4>Покупателям</h4>
+        <a href="about.html">О нас</a>
+        <a href="contacts.html">Доставка</a>
+        <a href="contacts.html">Контакты</a>
+      </div>
+      <div class="footer__col">
+        <h4>Контакты</h4>
+        <a href="tel:+78001234567">8 (800) 123-45-67</a>
+        <a href="mailto:info@zelenydvor.ru">info@zelenydvor.ru</a>
+        <p>Москва, ул. Садовая, 12</p>
+      </div>
+    </div>
+    <div class="container footer__bottom"><p>© 2026 ЗелёныйДвор. Все права защищены.</p></div>
+  </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/ai-knowledge.js"></script>
+  <script src="js/ai-agent.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

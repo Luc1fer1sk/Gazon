@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мой аккаунт — ЗелёныйДвор</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo"><span class="logo__icon">🌿</span><span class="logo__text">Зелёный<span>Двор</span></span></a>
+      <nav class="nav">
+        <a href="catalog.html" class="nav__link">Каталог</a>
+        <a href="tablets.html" class="nav__link">Таблетки</a>
+        <a href="lawn.html" class="nav__link">Газон</a>
+        <a href="about.html" class="nav__link">О нас</a>
+        <a href="contacts.html" class="nav__link">Контакты</a>
+      </nav>
+      <div class="header__actions">
+        <a href="cart.html" class="btn-icon cart-btn" aria-label="Корзина">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-btn__badge">3</span>
+        </a>
+        <div id="auth-slot" class="auth-slot"></div>
+      </div>
+      <button class="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <section class="page-banner" style="height: 200px;">
+    <div class="page-banner__bg"><img src="images/page-banner.jpg" alt="Аккаунт"></div>
+    <div class="page-banner__overlay"></div>
+    <div class="container">
+      <nav class="breadcrumbs"><a href="index.html">Главная</a> <span>/</span> <span>Мой аккаунт</span></nav>
+      <h1>Мой аккаунт</h1>
+      <p>Управление профилем и заказами</p>
+    </div>
+  </section>
+
+  <section class="account-page">
+    <div class="container">
+      <div class="account-layout">
+        <aside class="account-sidebar">
+          <div class="account-user" id="account-user-card">
+            <div class="account-user__avatar" id="account-avatar">👤</div>
+            <div>
+              <strong id="account-display-name">Загрузка...</strong>
+              <span id="account-display-email"></span>
+            </div>
+          </div>
+          <nav class="account-nav">
+            <a href="account.html" class="account-nav__link account-nav__link--active">Профиль</a>
+            <a href="cart.html" class="account-nav__link">Мои заказы</a>
+            <a href="catalog.html" class="account-nav__link">Каталог</a>
+          </nav>
+        </aside>
+
+        <div class="account-content">
+          <div id="account-error" class="auth-alert" hidden></div>
+          <div id="account-success" class="auth-alert auth-alert--success" hidden></div>
+
+          <form id="profile-form" class="contact-form">
+            <h2>Данные профиля</h2>
+            <div class="form-group">
+              <label for="profile-name">Имя</label>
+              <input type="text" id="profile-name" placeholder="Иван Иванов">
+            </div>
+            <div class="form-group">
+              <label for="profile-email">E-mail</label>
+              <input type="email" id="profile-email" disabled>
+            </div>
+            <div class="form-group">
+              <label for="profile-phone">Телефон</label>
+              <input type="tel" id="profile-phone" placeholder="+7 (999) 123-45-67">
+            </div>
+            <button type="submit" class="btn btn--primary btn--lg">Сохранить изменения</button>
+          </form>
+
+          <div class="account-meta">
+            <p>Аккаунт создан: <span id="account-created">—</span></p>
+            <p>Способ входа: <span id="account-provider">—</span></p>
+          </div>
+
+          <section class="account-orders">
+            <h2>Мои заказы</h2>
+            <div id="orders-list"></div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__bottom"><p>© 2026 ЗелёныйДвор.</p></div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/orders.js"></script>
+  <script src="js/ai-knowledge.js"></script>
+  <script src="js/ai-agent.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const errorEl = document.getElementById('account-error');
+      const successEl = document.getElementById('account-success');
+
+      await Auth.init();
+      const session = await Auth.requireAuth();
+      if (!session) return;
+
+      const user = session.user;
+      const provider = user.app_metadata?.provider || 'email';
+
+      document.getElementById('account-display-email').textContent = user.email || '';
+      document.getElementById('profile-email').value = user.email || '';
+      document.getElementById('account-provider').textContent = provider === 'google' ? 'Google' : 'Email';
+      document.getElementById('account-created').textContent = new Date(user.created_at).toLocaleDateString('ru-RU');
+
+      try {
+        const profile = await Auth.getProfile();
+
+        document.getElementById('profile-name').value = profile?.full_name || '';
+        document.getElementById('profile-phone').value = profile?.phone || '';
+
+        const displayName = profile?.full_name || user.email?.split('@')[0] || 'Пользователь';
+        document.getElementById('account-display-name').textContent = displayName;
+
+        const avatarEl = document.getElementById('account-avatar');
+        if (profile?.avatar_url) {
+          avatarEl.innerHTML = `<img src="${profile.avatar_url}" alt="Аватар">`;
+        } else {
+          avatarEl.textContent = displayName.charAt(0).toUpperCase();
+        }
+      } catch (err) {
+        Auth.showError(errorEl, err.message || 'Не удалось загрузить профиль');
+      }
+
+      try {
+        const orders = await Orders.loadMyOrders();
+        Orders.renderOrdersList(document.getElementById('orders-list'), orders);
+      } catch (err) {
+        Auth.showError(errorEl, err.message || 'Не удалось загрузить заказы');
+      }
+
+      document.getElementById('profile-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        Auth.hideError(errorEl);
+        successEl.hidden = true;
+
+        try {
+          await Auth.updateProfile({
+            full_name: document.getElementById('profile-name').value.trim(),
+            phone: document.getElementById('profile-phone').value.trim()
+          });
+
+          const name = document.getElementById('profile-name').value.trim();
+          document.getElementById('account-display-name').textContent = name || user.email?.split('@')[0];
+          successEl.textContent = 'Профиль успешно сохранён';
+          successEl.hidden = false;
+        } catch (err) {
+          Auth.showError(errorEl, err.message || 'Ошибка сохранения');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

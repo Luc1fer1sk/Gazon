@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Газон — ЗелёныйДвор</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo"><span class="logo__icon">🌿</span><span class="logo__text">Зелёный<span>Двор</span></span></a>
+      <nav class="nav">
+        <a href="catalog.html" class="nav__link">Каталог</a>
+        <a href="tablets.html" class="nav__link">Таблетки</a>
+        <a href="lawn.html" class="nav__link">Газон</a>
+        <a href="about.html" class="nav__link">О нас</a>
+        <a href="contacts.html" class="nav__link">Контакты</a>
+      </nav>
+      <div class="header__actions">
+        <a href="cart.html" class="btn-icon cart-btn" aria-label="Корзина"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-btn__badge">3</span></a>
+        <div id="auth-slot" class="auth-slot"></div>
+      </div>
+      <button class="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <section class="page-banner">
+    <div class="page-banner__bg"><img src="images/hero-lawn.jpg" alt="Газон"></div>
+    <div class="page-banner__overlay"></div>
+    <div class="container">
+      <nav class="breadcrumbs"><a href="index.html">Главная</a> <span>/</span> <a href="catalog.html">Каталог</a> <span>/</span> <span>Газон</span></nav>
+      <h1>Газон</h1>
+      <p>Рулонный и семенной газон для двора, спорта и ландшафтного дизайна</p>
+    </div>
+  </section>
+
+  <section class="products products--alt">
+    <div class="container">
+      <div class="products__grid">
+        <article class="product-card">
+          <div class="product-card__badge product-card__badge--hit">Хит</div>
+          <a href="product-lawn.html" class="product-card__link"><div class="product-card__img"><img src="images/product-lawn-premium.jpg" alt="Премиум"></div></a>
+          <div class="product-card__body"><span class="product-card__brand">LawnPro</span><h3 class="product-card__title"><a href="product-lawn.html">Рулонный газон «Премиум» 1 м²</a></h3><div class="product-card__rating">★★★★★ <span>4.9</span></div><div class="product-card__footer"><div class="product-card__price"><span class="price-current">450 ₽/м²</span></div><button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="lawn-premium">В корзину</button></div></div>
+        </article>
+        <article class="product-card">
+          <a href="product-sport.html" class="product-card__link"><div class="product-card__img"><img src="images/product-lawn-sport.jpg" alt="Спортивный"></div></a>
+          <div class="product-card__body"><span class="product-card__brand">SportGrass</span><h3 class="product-card__title"><a href="product-sport.html">Спортивный газон рулонный 1 м²</a></h3><div class="product-card__rating">★★★★★ <span>4.8</span></div><div class="product-card__footer"><div class="product-card__price"><span class="price-current">580 ₽/м²</span></div><button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="sport">В корзину</button></div></div>
+        </article>
+        <article class="product-card">
+          <div class="product-card__badge product-card__badge--sale">−10%</div>
+          <a href="product-seeds.html" class="product-card__link"><div class="product-card__img"><img src="images/product-seeds.jpg" alt="Семена"></div></a>
+          <div class="product-card__body"><span class="product-card__brand">SeedMaster</span><h3 class="product-card__title"><a href="product-seeds.html">Семена газона «Универсал» 1 кг</a></h3><div class="product-card__rating">★★★★☆ <span>4.5</span></div><div class="product-card__footer"><div class="product-card__price"><span class="price-old">1 400 ₽</span><span class="price-current">1 260 ₽</span></div><button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="seeds">В корзину</button></div></div>
+        </article>
+        <article class="product-card">
+          <a href="product-shadow.html" class="product-card__link"><div class="product-card__img"><img src="images/product-lawn-shadow.jpg" alt="Теневыносливый"></div></a>
+          <div class="product-card__body"><span class="product-card__brand">ShadowLawn</span><h3 class="product-card__title"><a href="product-shadow.html">Теневыносливый газон рулонный 1 м²</a></h3><div class="product-card__rating">★★★★☆ <span>4.6</span></div><div class="product-card__footer"><div class="product-card__price"><span class="price-current">520 ₽/м²</span></div><button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="shadow">В корзину</button></div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand"><a href="index.html" class="logo"><span class="logo__icon">🌿</span><span class="logo__text">Зелёный<span>Двор</span></span></a></div>
+      <div class="footer__col"><h4>Каталог</h4><a href="tablets.html">Таблетки</a><a href="lawn.html">Газон</a></div>
+      <div class="footer__col"><h4>Контакты</h4><a href="tel:+78001234567">8 (800) 123-45-67</a></div>
+    </div>
+    <div class="container footer__bottom"><p>© 2026 ЗелёныйДвор.</p></div>
+  </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/ai-knowledge.js"></script>
+  <script src="js/ai-agent.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Корзина — ЗелёныйДвор</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo"><span class="logo__icon">🌿</span><span class="logo__text">Зелёный<span>Двор</span></span></a>
+      <nav class="nav">
+        <a href="catalog.html" class="nav__link">Каталог</a>
+        <a href="tablets.html" class="nav__link">Таблетки</a>
+        <a href="lawn.html" class="nav__link">Газон</a>
+        <a href="about.html" class="nav__link">О нас</a>
+        <a href="contacts.html" class="nav__link">Контакты</a>
+      </nav>
+      <div class="header__actions">
+        <a href="cart.html" class="btn-icon cart-btn" aria-label="Корзина"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-btn__badge">3</span></a>
+        <div id="auth-slot" class="auth-slot"></div>
+      </div>
+      <button class="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <section class="page-banner" style="height: 200px;">
+    <div class="page-banner__bg"><img src="images/page-banner.jpg" alt="Корзина"></div>
+    <div class="page-banner__overlay"></div>
+    <div class="container">
+      <nav class="breadcrumbs"><a href="index.html">Главная</a> <span>/</span> <span>Корзина</span></nav>
+      <h1>Корзина</h1>
+      <p id="cart-banner-text">Загрузка...</p>
+    </div>
+  </section>
+
+  <section class="cart-page">
+    <div class="container">
+      <div class="cart-layout">
+        <div class="cart-items" id="cart-items"></div>
+        <div class="cart-summary">
+          <h3>Итого</h3>
+          <div class="cart-summary__row"><span id="items-count-label">Товары (0)</span><span id="subtotal-value">0 ₽</span></div>
+          <div class="cart-summary__row"><span>Доставка</span><span id="delivery-value" style="color: var(--color-primary);">—</span></div>
+          <div class="cart-summary__row"><span>Скидка</span><span id="discount-value" style="color: #e76f51;">0 ₽</span></div>
+          <div class="cart-summary__row cart-summary__row--total"><span>К оплате</span><span id="total-value">0 ₽</span></div>
+          <button type="button" id="checkout-btn" class="btn btn--primary btn--lg">Оформить заказ</button>
+          <a href="catalog.html" class="btn btn--outline" style="width: 100%; margin-top: 12px;">Продолжить покупки</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand"><a href="index.html" class="logo"><span class="logo__icon">🌿</span><span class="logo__text">Зелёный<span>Двор</span></span></a></div>
+      <div class="footer__col"><h4>Каталог</h4><a href="catalog.html">Каталог</a></div>
+      <div class="footer__col"><h4>Контакты</h4><a href="tel:+78001234567">8 (800) 123-45-67</a></div>
+    </div>
+    <div class="container footer__bottom"><p>© 2026 ЗелёныйДвор.</p></div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/orders.js"></script>
+  <script src="js/ai-knowledge.js"></script>
+  <script src="js/ai-agent.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.getElementById('checkout-btn')?.addEventListener('click', async () => {
+      const checkoutBtn = document.getElementById('checkout-btn');
+      checkoutBtn.disabled = true;
+      checkoutBtn.textContent = 'Оформляем...';
+
+      const client = Auth.getClient();
+      if (!client) {
+        window.location.href = 'login.html?redirect=cart.html';
+        return;
+      }
+      const { data: { session } } = await client.auth.getSession();
+      if (!session) {
+        window.location.href = 'login.html?redirect=cart.html';
+        return;
+      }
+
+      if (!Cart.getItems().length) {
+        alert('Корзина пуста');
+        checkoutBtn.disabled = false;
+        checkoutBtn.textContent = 'Оформить заказ';
+        return;
+      }
+
+      try {
+        const order = await Orders.createOrderFromCart();
+        alert(`Заказ #${order.id} успешно создан. Корзина очищена. Статус — в личном кабинете.`);
+        window.location.href = 'account.html';
+      } catch (err) {
+        alert(err.message || 'Не удалось оформить заказ');
+        checkoutBtn.disabled = false;
+        checkoutBtn.textContent = 'Оформить заказ';
+      }
+    });
+  </script>
+</body>
+</html>

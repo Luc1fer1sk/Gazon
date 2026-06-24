@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вход — ЗелёныйДвор</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo"><span class="logo__icon">🌿</span><span class="logo__text">Зелёный<span>Двор</span></span></a>
+      <nav class="nav">
+        <a href="catalog.html" class="nav__link">Каталог</a>
+        <a href="tablets.html" class="nav__link">Таблетки</a>
+        <a href="lawn.html" class="nav__link">Газон</a>
+        <a href="about.html" class="nav__link">О нас</a>
+        <a href="contacts.html" class="nav__link">Контакты</a>
+      </nav>
+      <div class="header__actions">
+        <div id="auth-slot" class="auth-slot"></div>
+      </div>
+      <button class="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <section class="auth-page">
+    <div class="container">
+      <div class="auth-card">
+        <h1>Вход в аккаунт</h1>
+        <p class="auth-card__subtitle">Войдите, чтобы оформлять заказы и отслеживать доставку</p>
+
+        <div id="auth-error" class="auth-alert" hidden></div>
+        <div id="auth-config-warning" class="auth-alert auth-alert--warning" hidden>
+          Supabase не настроен. Заполните <code>js/supabase-config.js</code> своими ключами.
+        </div>
+
+        <button type="button" class="btn btn--google btn--lg" id="google-login">
+          <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Войти через Google
+        </button>
+
+        <div class="auth-divider"><span>или</span></div>
+
+        <form id="login-form" class="auth-form">
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" placeholder="ivan@mail.ru" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="password">Пароль</label>
+            <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password" minlength="6">
+          </div>
+          <button type="submit" class="btn btn--primary btn--lg" style="width:100%">Войти</button>
+        </form>
+
+        <p class="auth-card__footer">
+          Нет аккаунта? <a href="register.html">Зарегистрироваться</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ai-knowledge.js"></script>
+  <script src="js/ai-agent.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const errorEl = document.getElementById('auth-error');
+      const configWarning = document.getElementById('auth-config-warning');
+      const params = new URLSearchParams(window.location.search);
+      const redirect = params.get('redirect') || 'account.html';
+
+      if (!Auth.isConfigured()) {
+        configWarning.hidden = false;
+      }
+
+      const session = await Auth.init();
+      if (session) {
+        window.location.href = redirect;
+        return;
+      }
+
+      document.getElementById('google-login').addEventListener('click', async () => {
+        Auth.hideError(errorEl);
+        try {
+          await Auth.signInWithGoogle();
+        } catch (err) {
+          Auth.showError(errorEl, err.message || 'Ошибка входа через Google');
+        }
+      });
+
+      document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        Auth.hideError(errorEl);
+
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+
+        try {
+          await Auth.signInWithEmail(email, password);
+          window.location.href = redirect;
+        } catch (err) {
+          Auth.showError(errorEl, err.message || 'Неверный email или пароль');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
