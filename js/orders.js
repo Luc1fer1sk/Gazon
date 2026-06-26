@@ -69,13 +69,15 @@ const Orders = {
       Cart.clear();
     }
 
-    await this.sendToHubspot({
-      orderId: data.id,
-      email: user.email,
-      total: summary.total,
-      itemCount: items.reduce((acc, it) => acc + it.qty, 0),
-      items
-    });
+    if (typeof Crm !== 'undefined') {
+      await Crm.submitOrder({
+        orderId: data.id,
+        email: user.email,
+        total: summary.total,
+        itemCount: items.reduce((acc, it) => acc + it.qty, 0),
+        items
+      });
+    }
 
     await this.sendOrderEmail({
       orderId: data.id,
@@ -108,32 +110,6 @@ const Orders = {
       }
     } catch (err) {
       console.warn('Email не отправлен:', err);
-    }
-  },
-
-  async sendToHubspot(payload) {
-    if (!window.HUBSPOT_PORTAL_ID || !window.HUBSPOT_FORM_ID) return;
-
-    const endpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${window.HUBSPOT_PORTAL_ID}/${window.HUBSPOT_FORM_ID}`;
-    const context = {
-      pageUri: window.location.href,
-      pageName: 'Checkout'
-    };
-
-    const fields = [
-      { name: 'email', value: payload.email || '' },
-      { name: 'message', value: `Заказ #${payload.orderId}. Сумма: ${this.formatRub(payload.total)}. Товаров: ${payload.itemCount}.` },
-      { name: 'firstname', value: 'Клиент' }
-    ];
-
-    try {
-      await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fields, context })
-      });
-    } catch (_err) {
-      // Не блокируем оформление заказа, если CRM временно недоступна.
     }
   },
 

@@ -61,8 +61,9 @@
             <p>Бесплатно при заказе от 5 000 ₽</p>
           </div>
         </div>
-        <form class="contact-form" onsubmit="return false;">
+        <form id="contact-form" class="contact-form">
           <h2>Напишите нам</h2>
+          <p id="contact-form-status" class="form-status" hidden></p>
           <div class="form-group">
             <label for="name">Ваше имя</label>
             <input type="text" id="name" placeholder="Иван" required>
@@ -103,6 +104,7 @@
   <script src="js/auth.js"></script>
   <script src="js/products.js"></script>
   <script src="js/cart.js"></script>
+  <script src="js/crm.js"></script>
   <script src="js/ai-knowledge.js"></script>
   <script src="js/ai-agent.js"></script>
   <script src="js/main.js"></script>
