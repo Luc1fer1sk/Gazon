@@ -13,9 +13,16 @@ const Crm = {
       throw new Error('CRM не настроена. Заполните Supabase в js/supabase-config.js');
     }
 
-    const { data, error } = await client.functions.invoke(this.getFunctionName(), {
-      body: payload
-    });
+    const { data: { session } } = await client.auth.getSession();
+    const options = { body: payload };
+
+    if (session?.access_token) {
+      options.headers = { Authorization: `Bearer ${session.access_token}` };
+    } else if (payload.type === 'order') {
+      throw new Error('Войдите в аккаунт, чтобы отправить заказ в CRM');
+    }
+
+    const { data, error } = await client.functions.invoke(this.getFunctionName(), options);
 
     if (error) {
       throw new Error(error.message || 'Ошибка отправки в amoCRM');
@@ -50,19 +57,15 @@ const Crm = {
   },
 
   async submitOrder({ orderId, email, total, itemCount, items }) {
-    try {
-      await this.submit({
-        type: 'order',
-        orderId,
-        email,
-        total,
-        itemCount,
-        items,
-        pageName: 'Checkout'
-      });
-    } catch (err) {
-      console.warn('CRM (заказ):', err.message || err);
-    }
+    await this.submit({
+      type: 'order',
+      orderId,
+      email,
+      total,
+      itemCount,
+      items,
+      pageName: 'Checkout'
+    });
   },
 
   bindContactForm() {

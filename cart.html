@@ -97,8 +97,8 @@
 
       try {
         const order = await Orders.createOrderFromCart();
-        alert(`Заказ #${order.id} успешно создан. Корзина очищена. Статус — в личном кабинете.`);
-        window.location.href = 'account.html';
+        alert(`Заказ #${order.id} успешно создан. Статус — в разделе «Мои заказы».`);
+        window.location.href = 'account.html#account-orders';
       } catch (err) {
         alert(err.message || 'Не удалось оформить заказ');
         checkoutBtn.disabled = false;

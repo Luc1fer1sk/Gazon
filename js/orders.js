@@ -70,13 +70,17 @@ const Orders = {
     }
 
     if (typeof Crm !== 'undefined') {
-      await Crm.submitOrder({
-        orderId: data.id,
-        email: user.email,
-        total: summary.total,
-        itemCount: items.reduce((acc, it) => acc + it.qty, 0),
-        items
-      });
+      try {
+        await Crm.submitOrder({
+          orderId: data.id,
+          email: user.email,
+          total: summary.total,
+          itemCount: items.reduce((acc, it) => acc + it.qty, 0),
+          items
+        });
+      } catch (err) {
+        console.warn('CRM (заказ):', err.message || err);
+      }
     }
 
     await this.sendOrderEmail({
