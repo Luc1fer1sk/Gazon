@@ -7,6 +7,22 @@ const Admin = {
     return [...new Set([primary, 'ai-chat'].filter(Boolean))];
   },
 
+  async parseInvokeError(error, data) {
+    if (data?.error) return data.error;
+    if (!error) return null;
+
+    try {
+      if (error.context && typeof error.context.json === 'function') {
+        const details = await error.context.json();
+        if (details?.error) return details.error;
+      }
+    } catch (_err) {
+      // ignore parse errors
+    }
+
+    return error.message || 'Ошибка Edge Function';
+  },
+
   async invokeFunction(body) {
     if (window.location.protocol === 'file:') {
       throw new Error('Откройте сайт через GitHub Pages (https://), не как локальный файл');
@@ -24,34 +40,14 @@ const Admin = {
     const errors = [];
 
     for (const functionName of this.getGenerateFunctionNames()) {
-      const url = `${window.SUPABASE_URL}/functions/v1/${functionName}`;
+      const { data, error } = await client.functions.invoke(functionName, { body: payload });
 
-      try {
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            apikey: window.SUPABASE_ANON_KEY,
-            Authorization: `Bearer ${window.SUPABASE_ANON_KEY}`
-          },
-          body: JSON.stringify(payload)
-        });
-
-        const data = await res.json().catch(() => ({}));
-
-        if (res.ok && data.description) {
-          return data;
-        }
-
-        if (res.status === 404) {
-          errors.push(`Функция «${functionName}» не найдена (404)`);
-          continue;
-        }
-
-        errors.push(data.error || `HTTP ${res.status} (${functionName})`);
-      } catch (err) {
-        errors.push(err.message || `Сеть: ${functionName}`);
+      if (!error && data?.description) {
+        return data;
       }
+
+      const message = await this.parseInvokeError(error, data);
+      errors.push(message || `Ошибка функции «${functionName}»`);
     }
 
     throw new Error(errors[0] || 'Не удалось вызвать Edge Function');
