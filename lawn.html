@@ -38,26 +38,7 @@
 
   <section class="products products--alt">
     <div class="container">
-      <div class="products__grid">
-        <article class="product-card">
-          <div class="product-card__badge product-card__badge--hit">Хит</div>
-          <a href="product-lawn.html" class="product-card__link"><div class="product-card__img"><img src="images/product-lawn-premium.jpg" alt="Премиум"></div></a>
-          <div class="product-card__body"><span class="product-card__brand">LawnPro</span><h3 class="product-card__title"><a href="product-lawn.html">Рулонный газон «Премиум» 1 м²</a></h3><div class="product-card__rating">★★★★★ <span>4.9</span></div><div class="product-card__footer"><div class="product-card__price"><span class="price-current">450 ₽/м²</span></div><button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="lawn-premium">В корзину</button></div></div>
-        </article>
-        <article class="product-card">
-          <a href="product-sport.html" class="product-card__link"><div class="product-card__img"><img src="images/product-lawn-sport.jpg" alt="Спортивный"></div></a>
-          <div class="product-card__body"><span class="product-card__brand">SportGrass</span><h3 class="product-card__title"><a href="product-sport.html">Спортивный газон рулонный 1 м²</a></h3><div class="product-card__rating">★★★★★ <span>4.8</span></div><div class="product-card__footer"><div class="product-card__price"><span class="price-current">580 ₽/м²</span></div><button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="sport">В корзину</button></div></div>
-        </article>
-        <article class="product-card">
-          <div class="product-card__badge product-card__badge--sale">−10%</div>
-          <a href="product-seeds.html" class="product-card__link"><div class="product-card__img"><img src="images/product-seeds.jpg" alt="Семена"></div></a>
-          <div class="product-card__body"><span class="product-card__brand">SeedMaster</span><h3 class="product-card__title"><a href="product-seeds.html">Семена газона «Универсал» 1 кг</a></h3><div class="product-card__rating">★★★★☆ <span>4.5</span></div><div class="product-card__footer"><div class="product-card__price"><span class="price-old">1 400 ₽</span><span class="price-current">1 260 ₽</span></div><button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="seeds">В корзину</button></div></div>
-        </article>
-        <article class="product-card">
-          <a href="product-shadow.html" class="product-card__link"><div class="product-card__img"><img src="images/product-lawn-shadow.jpg" alt="Теневыносливый"></div></a>
-          <div class="product-card__body"><span class="product-card__brand">ShadowLawn</span><h3 class="product-card__title"><a href="product-shadow.html">Теневыносливый газон рулонный 1 м²</a></h3><div class="product-card__rating">★★★★☆ <span>4.6</span></div><div class="product-card__footer"><div class="product-card__price"><span class="price-current">520 ₽/м²</span></div><button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="shadow">В корзину</button></div></div>
-        </article>
-      </div>
+      <div class="products__grid" data-products-grid="lawn"></div>
     </div>
   </section>
 
@@ -73,6 +54,7 @@
   <script src="js/supabase-config.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/products.js"></script>
+  <script src="js/products-store.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/ai-knowledge.js"></script>
   <script src="js/ai-agent.js"></script>

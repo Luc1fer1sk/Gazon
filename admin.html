@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Админка — ЗелёныйДвор</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo"><span class="logo__icon">🌿</span><span class="logo__text">Зелёный<span>Двор</span></span></a>
+      <nav class="nav">
+        <a href="catalog.html" class="nav__link">Каталог</a>
+        <a href="admin.html" class="nav__link nav__link--active">Админка</a>
+      </nav>
+      <div class="header__actions">
+        <div id="auth-slot" class="auth-slot"></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-banner" style="height: 180px;">
+    <div class="page-banner__overlay"></div>
+    <div class="container">
+      <h1>Админка товаров</h1>
+      <p>Управление каталогом</p>
+    </div>
+  </section>
+
+  <section class="admin-page">
+    <div class="container">
+      <div id="admin-denied" class="auth-alert" hidden>
+        Доступ запрещён. Войдите под администраторским email.
+        <a href="login.html?redirect=admin.html">Войти</a>
+      </div>
+
+      <div id="admin-app" hidden>
+        <div id="admin-error" class="auth-alert" hidden></div>
+        <div id="admin-success" class="auth-alert auth-alert--success" hidden></div>
+
+        <div class="admin-toolbar">
+          <h2>Товары</h2>
+          <button type="button" id="admin-add-btn" class="btn btn--primary">+ Добавить товар</button>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Бренд</th>
+                <th>Цена</th>
+                <th>Активен</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="admin-products-body"></tbody>
+          </table>
+        </div>
+
+        <div id="admin-form-panel" class="admin-form-panel" hidden>
+          <h2 id="admin-form-title">Новый товар</h2>
+          <form id="admin-product-form" class="contact-form admin-form">
+            <div class="admin-form__grid">
+              <div class="form-group">
+                <label for="field-id">ID (slug)</label>
+                <input type="text" id="field-id" placeholder="my-product" required>
+              </div>
+              <div class="form-group">
+                <label for="field-title">Название</label>
+                <input type="text" id="field-title" placeholder="Таблетки NPK..." required>
+              </div>
+              <div class="form-group">
+                <label for="field-brand">Бренд</label>
+                <input type="text" id="field-brand" placeholder="BioGrow">
+              </div>
+              <div class="form-group">
+                <label for="field-category">Категория</label>
+                <select id="field-category">
+                  <option value="tablets">Таблетки</option>
+                  <option value="lawn">Газон</option>
+                  <option value="other">Другое</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="field-unit-price">Цена, ₽</label>
+                <input type="number" id="field-unit-price" min="0" step="1" required>
+              </div>
+              <div class="form-group">
+                <label for="field-old-price">Старая цена, ₽</label>
+                <input type="number" id="field-old-price" min="0" step="1">
+              </div>
+              <div class="form-group">
+                <label for="field-image">Путь к изображению</label>
+                <input type="text" id="field-image" placeholder="images/product-npk.jpg">
+              </div>
+              <div class="form-group">
+                <label for="field-url">URL страницы</label>
+                <input type="text" id="field-url" placeholder="product.html?id=my-product">
+              </div>
+              <div class="form-group">
+                <label for="field-badge">Бейдж</label>
+                <select id="field-badge">
+                  <option value="">Нет</option>
+                  <option value="sale">Акция</option>
+                  <option value="hit">Хит</option>
+                  <option value="new">Новинка</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="field-rating">Рейтинг</label>
+                <input type="number" id="field-rating" min="1" max="5" step="0.1" value="4.8">
+              </div>
+              <div class="form-group">
+                <label for="field-reviews-count">Отзывов</label>
+                <input type="number" id="field-reviews-count" min="0" step="1" value="0">
+              </div>
+              <div class="form-group">
+                <label for="field-sort-order">Порядок сортировки</label>
+                <input type="number" id="field-sort-order" min="0" step="1" value="0">
+              </div>
+              <div class="form-group form-group--checkbox">
+                <label><input type="checkbox" id="field-is-active" checked> Товар активен (виден в каталоге)</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="admin-description-row">
+                <label for="field-description">Описание</label>
+                <button type="button" id="admin-generate-btn" class="btn btn--outline btn--sm">Сгенерировать</button>
+              </div>
+              <textarea id="field-description" rows="5" placeholder="Краткое описание товара..."></textarea>
+            </div>
+
+            <div class="admin-form__actions">
+              <button type="submit" class="btn btn--primary btn--lg">Сохранить</button>
+              <button type="button" id="admin-cancel-btn" class="btn btn--outline btn--lg">Отмена</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/products-store.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -38,27 +38,7 @@
 
   <section class="products">
     <div class="container">
-      <div class="products__grid">
-        <article class="product-card">
-          <div class="product-card__badge product-card__badge--sale">−20%</div>
-          <a href="product-npk.html" class="product-card__link"><div class="product-card__img"><img src="images/product-npk.jpg" alt="NPK"></div></a>
-          <div class="product-card__body"><span class="product-card__brand">BioGrow</span><h3 class="product-card__title"><a href="product-npk.html">Таблетки удобрения NPK 12-6-8</a></h3><div class="product-card__rating">★★★★★ <span>4.9</span></div><div class="product-card__footer"><div class="product-card__price"><span class="price-old">990 ₽</span><span class="price-current">790 ₽</span></div><button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="npk">В корзину</button></div></div>
-        </article>
-        <article class="product-card">
-          <div class="product-card__badge product-card__badge--hit">Хит</div>
-          <a href="product-weed.html" class="product-card__link"><div class="product-card__img"><img src="images/product-weed.jpg" alt="WeedStop"></div></a>
-          <div class="product-card__body"><span class="product-card__brand">GreenMax</span><h3 class="product-card__title"><a href="product-weed.html">Таблетки от сорняков WeedStop</a></h3><div class="product-card__rating">★★★★☆ <span>4.7</span></div><div class="product-card__footer"><div class="product-card__price"><span class="price-current">1 250 ₽</span></div><button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="weed">В корзину</button></div></div>
-        </article>
-        <article class="product-card">
-          <a href="product-root.html" class="product-card__link"><div class="product-card__img"><img src="images/product-root.jpg" alt="Root+"></div></a>
-          <div class="product-card__body"><span class="product-card__brand">TerraVita</span><h3 class="product-card__title"><a href="product-root.html">Стимулятор корнеобразования Root+</a></h3><div class="product-card__rating">★★★★★ <span>5.0</span></div><div class="product-card__footer"><div class="product-card__price"><span class="price-current">650 ₽</span></div><button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="root">В корзину</button></div></div>
-        </article>
-        <article class="product-card">
-          <div class="product-card__badge product-card__badge--new">Новинка</div>
-          <a href="product-bio.html" class="product-card__link"><div class="product-card__img"><img src="images/product-bio.jpg" alt="Bio-Active"></div></a>
-          <div class="product-card__body"><span class="product-card__brand">EcoLawn</span><h3 class="product-card__title"><a href="product-bio.html">Органические таблетки Bio-Active</a></h3><div class="product-card__rating">★★★★☆ <span>4.6</span></div><div class="product-card__footer"><div class="product-card__price"><span class="price-current">1 100 ₽</span></div><button type="button" class="btn btn--primary btn--sm btn-add-cart" data-product-id="bio">В корзину</button></div></div>
-        </article>
-      </div>
+      <div class="products__grid" data-products-grid="tablets"></div>
     </div>
   </section>
 
@@ -74,6 +54,7 @@
   <script src="js/supabase-config.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/products.js"></script>
+  <script src="js/products-store.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/ai-knowledge.js"></script>
   <script src="js/ai-agent.js"></script>

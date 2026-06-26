@@ -7,6 +7,9 @@ window.SUPABASE_ANON_KEY = 'ВАШ_ANON_KEY';
 // amoCRM: токены в Supabase Secrets, см. CRM_SETUP.md
 window.CRM_EDGE_FUNCTION = 'amocrm-submit';
 
+window.ADMIN_EMAIL = 'agent47podprikritiem@gmail.com';
+window.GENERATE_DESCRIPTION_FUNCTION = 'generate-product-description';
+
 // Настройка Google OAuth в Supabase:
 // 1. Authentication → Providers → Google → Enable
 // 2. Создайте OAuth Client в Google Cloud Console

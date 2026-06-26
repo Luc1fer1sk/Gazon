@@ -65,6 +65,15 @@ const Auth = {
     return div.innerHTML;
   },
 
+  getAdminEmail() {
+    return (window.ADMIN_EMAIL || 'agent47podprikritiem@gmail.com').toLowerCase();
+  },
+
+  isAdmin(session) {
+    const email = session?.user?.email?.toLowerCase() || '';
+    return email === this.getAdminEmail();
+  },
+
   renderAuthSlot(session) {
     const slot = document.getElementById('auth-slot');
     if (!slot) return;
@@ -78,6 +87,7 @@ const Auth = {
 
       slot.innerHTML = `
         <div class="auth-user">
+          ${this.isAdmin(session) ? '<a href="admin.html" class="btn btn--primary btn--sm">Админка</a>' : ''}
           <a href="account.html" class="btn btn--outline btn--sm">${this.escapeHtml(name)}</a>
           <button type="button" class="btn btn--ghost btn--sm" id="logout-btn">Выйти</button>
         </div>

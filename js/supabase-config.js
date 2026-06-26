@@ -15,3 +15,9 @@ window.SITE_BASE_PATH = '/Gazon/';
 
 // Имя Edge Function для AI-чата (смотри URL в Supabase → Edge Functions)
 window.AI_EDGE_FUNCTION = 'quick-worker';
+
+// Email администратора (доступ к admin.html)
+window.ADMIN_EMAIL = 'agent47podprikritiem@gmail.com';
+
+// Edge Function для генерации описания товара (Groq / Llama)
+window.GENERATE_DESCRIPTION_FUNCTION = 'generate-product-description';

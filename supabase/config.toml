@@ -3,3 +3,6 @@ verify_jwt = false
 
 [functions.amocrm-submit]
 verify_jwt = false
+
+[functions.generate-product-description]
+verify_jwt = false

@@ -255,6 +255,9 @@ const Cart = {
   }
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  if (typeof ProductsStore !== 'undefined') {
+    await ProductsStore.ready;
+  }
   Cart.init();
 });
