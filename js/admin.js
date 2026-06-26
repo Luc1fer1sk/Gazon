@@ -8,6 +8,10 @@ const Admin = {
   },
 
   async invokeFunction(body) {
+    if (window.location.protocol === 'file:') {
+      throw new Error('Откройте сайт через GitHub Pages (https://), не как локальный файл');
+    }
+
     const client = Auth.getClient();
     if (!client) throw new Error('Supabase не настроен');
 
@@ -16,6 +20,7 @@ const Admin = {
       throw new Error('Войдите под admin-email перед генерацией');
     }
 
+    const payload = { ...body, accessToken: session.access_token };
     const errors = [];
 
     for (const functionName of this.getGenerateFunctionNames()) {
@@ -27,23 +32,23 @@ const Admin = {
           headers: {
             'Content-Type': 'application/json',
             apikey: window.SUPABASE_ANON_KEY,
-            Authorization: `Bearer ${session.access_token}`
+            Authorization: `Bearer ${window.SUPABASE_ANON_KEY}`
           },
-          body: JSON.stringify(body)
+          body: JSON.stringify(payload)
         });
 
-        const payload = await res.json().catch(() => ({}));
+        const data = await res.json().catch(() => ({}));
 
-        if (res.ok && payload.description) {
-          return payload;
+        if (res.ok && data.description) {
+          return data;
         }
 
         if (res.status === 404) {
-          errors.push(`Функция «${functionName}» не найдена`);
+          errors.push(`Функция «${functionName}» не найдена (404)`);
           continue;
         }
 
-        errors.push(payload.error || `HTTP ${res.status} (${functionName})`);
+        errors.push(data.error || `HTTP ${res.status} (${functionName})`);
       } catch (err) {
         errors.push(err.message || `Сеть: ${functionName}`);
       }

@@ -88,10 +88,15 @@ function decodeJwtEmail(authHeader: string): string | null {
   }
 }
 
-async function assertAdmin(req: Request) {
-  const authHeader = req.headers.get("Authorization");
-  if (!authHeader) throw new Error("Требуется авторизация");
+async function assertAdmin(req: Request, body?: { accessToken?: string }) {
+  const token =
+    body?.accessToken?.trim() ||
+    req.headers.get("Authorization")?.replace(/^Bearer\s+/i, "").trim() ||
+    "";
 
+  if (!token) throw new Error("Требуется авторизация");
+
+  const authHeader = `Bearer ${token}`;
   let email = decodeJwtEmail(authHeader);
 
   if (!email) {
@@ -147,7 +152,7 @@ Deno.serve(async (req) => {
     const body = await req.json();
 
     if (body.mode === "product_description") {
-      await assertAdmin(req);
+      await assertAdmin(req, body);
 
       const title = body.title?.trim();
       if (!title) throw new Error("Укажите название товара");
