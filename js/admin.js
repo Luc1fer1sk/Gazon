@@ -3,7 +3,27 @@ const Admin = {
   editingId: null,
 
   getGenerateFunctionName() {
-    return window.GENERATE_DESCRIPTION_FUNCTION || 'generate-product-description';
+    return window.GENERATE_DESCRIPTION_FUNCTION || window.AI_EDGE_FUNCTION || 'quick-worker';
+  },
+
+  async invokeFunction(body) {
+    const client = Auth.getClient();
+    const functionName = this.getGenerateFunctionName();
+    const { data, error } = await client.functions.invoke(functionName, { body });
+
+    if (data?.error) {
+      throw new Error(data.error);
+    }
+
+    if (error) {
+      throw new Error(
+        data?.error ||
+        error.message ||
+        `Функция «${functionName}» недоступна. Обновите код quick-worker в Supabase.`
+      );
+    }
+
+    return data;
   },
 
   async requireAdmin() {
@@ -212,26 +232,17 @@ const Admin = {
     }
 
     const btn = document.getElementById('admin-generate-btn');
-    const client = Auth.getClient();
-    const { data: { session } } = await client.auth.getSession();
 
     btn.disabled = true;
     btn.textContent = 'Генерация...';
 
     try {
-      const { data, error } = await client.functions.invoke(this.getGenerateFunctionName(), {
-        body: {
-          title,
-          brand: document.getElementById('field-brand').value.trim(),
-          category: document.getElementById('field-category').value
-        },
-        headers: session?.access_token
-          ? { Authorization: `Bearer ${session.access_token}` }
-          : undefined
+      const data = await this.invokeFunction({
+        mode: 'product_description',
+        title,
+        brand: document.getElementById('field-brand').value.trim(),
+        category: document.getElementById('field-category').value
       });
-
-      if (error) throw new Error(error.message);
-      if (data?.error) throw new Error(data.error);
 
       document.getElementById('field-description').value = data.description || '';
     } catch (err) {

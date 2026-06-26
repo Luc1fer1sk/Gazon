@@ -19,5 +19,5 @@ window.AI_EDGE_FUNCTION = 'quick-worker';
 // Email администратора (доступ к admin.html)
 window.ADMIN_EMAIL = 'agent47podprikritiem@gmail.com';
 
-// Edge Function для генерации описания товара (Groq / Llama)
-window.GENERATE_DESCRIPTION_FUNCTION = 'generate-product-description';
+// Генерация описания — через quick-worker (тот же Groq/Llama, что и AI-чат)
+window.GENERATE_DESCRIPTION_FUNCTION = 'quick-worker';

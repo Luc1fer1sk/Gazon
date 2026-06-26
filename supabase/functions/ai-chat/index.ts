@@ -1,9 +1,12 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
+
+const ADMIN_EMAIL = Deno.env.get("ADMIN_EMAIL") ?? "agent47podprikritiem@gmail.com";
 
 const SYSTEM_PROMPT = `Ты — AI-консультант магазина «ЗелёныйДвор» (маркетплейс таблеток и газона).
 Отвечай на русском языке, дружелюбно и по делу. Ты эксперт по газонам и уходу за участком.
@@ -73,6 +76,48 @@ async function callGemini(messages: Array<{ role: string; content: string }>, ap
   return data.candidates?.[0]?.content?.parts?.[0]?.text || "";
 }
 
+async function assertAdmin(req: Request) {
+  const authHeader = req.headers.get("Authorization");
+  if (!authHeader) throw new Error("Требуется авторизация");
+
+  const supabase = createClient(
+    Deno.env.get("SUPABASE_URL") ?? "",
+    Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+    { global: { headers: { Authorization: authHeader } } }
+  );
+
+  const { data: { user }, error } = await supabase.auth.getUser();
+  if (error || !user) throw new Error("Пользователь не авторизован");
+  if (user.email?.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+    throw new Error("Доступ только для администратора");
+  }
+}
+
+async function generateProductDescription(title: string, brand: string, category: string) {
+  const groqKey = Deno.env.get("GROQ_API_KEY");
+  const geminiKey = Deno.env.get("GEMINI_API_KEY");
+
+  const messages = [
+    {
+      role: "system",
+      content:
+        "Ты копирайтер магазина газона и удобрений «ЗелёныйДвор». Пиши на русском, 2–3 коротких предложения, без заголовков и списков. Тон: экспертный, дружелюбный, без воды.",
+    },
+    {
+      role: "user",
+      content: `Напиши краткое описание товара для карточки на сайте.\nНазвание: ${title}\nБренд: ${brand || "не указан"}\nКатегория: ${category || "товар"}`,
+    },
+  ];
+
+  if (groqKey) {
+    return await callGroq(messages, groqKey);
+  }
+  if (geminiKey) {
+    return await callGemini(messages, geminiKey);
+  }
+  throw new Error("AI не настроен: добавьте GROQ_API_KEY в Supabase Secrets");
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
@@ -80,6 +125,24 @@ Deno.serve(async (req) => {
 
   try {
     const body = await req.json();
+
+    if (body.mode === "product_description") {
+      await assertAdmin(req);
+
+      const title = body.title?.trim();
+      if (!title) throw new Error("Укажите название товара");
+
+      const description = await generateProductDescription(
+        title,
+        body.brand?.trim() || "",
+        body.category || ""
+      );
+
+      return new Response(JSON.stringify({ description }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     const { messages, context } = body;
 
     if (!Array.isArray(messages) || !messages.length) {
