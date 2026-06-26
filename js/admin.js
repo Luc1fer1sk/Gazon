@@ -2,28 +2,54 @@ const Admin = {
   products: [],
   editingId: null,
 
-  getGenerateFunctionName() {
-    return window.GENERATE_DESCRIPTION_FUNCTION || window.AI_EDGE_FUNCTION || 'quick-worker';
+  getGenerateFunctionNames() {
+    const primary = window.GENERATE_DESCRIPTION_FUNCTION || window.AI_EDGE_FUNCTION || 'ai-chat';
+    return [...new Set([primary, 'ai-chat'].filter(Boolean))];
   },
 
   async invokeFunction(body) {
     const client = Auth.getClient();
-    const functionName = this.getGenerateFunctionName();
-    const { data, error } = await client.functions.invoke(functionName, { body });
+    if (!client) throw new Error('Supabase не настроен');
 
-    if (data?.error) {
-      throw new Error(data.error);
+    const { data: { session } } = await client.auth.getSession();
+    if (!session?.access_token) {
+      throw new Error('Войдите под admin-email перед генерацией');
     }
 
-    if (error) {
-      throw new Error(
-        data?.error ||
-        error.message ||
-        `Функция «${functionName}» недоступна. Обновите код quick-worker в Supabase.`
-      );
+    const errors = [];
+
+    for (const functionName of this.getGenerateFunctionNames()) {
+      const url = `${window.SUPABASE_URL}/functions/v1/${functionName}`;
+
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: window.SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${session.access_token}`
+          },
+          body: JSON.stringify(body)
+        });
+
+        const payload = await res.json().catch(() => ({}));
+
+        if (res.ok && payload.description) {
+          return payload;
+        }
+
+        if (res.status === 404) {
+          errors.push(`Функция «${functionName}» не найдена`);
+          continue;
+        }
+
+        errors.push(payload.error || `HTTP ${res.status} (${functionName})`);
+      } catch (err) {
+        errors.push(err.message || `Сеть: ${functionName}`);
+      }
     }
 
-    return data;
+    throw new Error(errors[0] || 'Не удалось вызвать Edge Function');
   },
 
   async requireAdmin() {

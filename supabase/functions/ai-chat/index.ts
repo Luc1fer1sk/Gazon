@@ -76,20 +76,40 @@ async function callGemini(messages: Array<{ role: string; content: string }>, ap
   return data.candidates?.[0]?.content?.parts?.[0]?.text || "";
 }
 
+function decodeJwtEmail(authHeader: string): string | null {
+  try {
+    const token = authHeader.replace(/^Bearer\s+/i, "");
+    const base64 = token.split(".")[1]?.replace(/-/g, "+").replace(/_/g, "/");
+    if (!base64) return null;
+    const payload = JSON.parse(atob(base64));
+    return typeof payload.email === "string" ? payload.email : null;
+  } catch {
+    return null;
+  }
+}
+
 async function assertAdmin(req: Request) {
   const authHeader = req.headers.get("Authorization");
   if (!authHeader) throw new Error("Требуется авторизация");
 
-  const supabase = createClient(
-    Deno.env.get("SUPABASE_URL") ?? "",
-    Deno.env.get("SUPABASE_ANON_KEY") ?? "",
-    { global: { headers: { Authorization: authHeader } } }
-  );
+  let email = decodeJwtEmail(authHeader);
 
-  const { data: { user }, error } = await supabase.auth.getUser();
-  if (error || !user) throw new Error("Пользователь не авторизован");
-  if (user.email?.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
-    throw new Error("Доступ только для администратора");
+  if (!email) {
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+      { global: { headers: { Authorization: authHeader } } }
+    );
+
+    const { data: { user }, error } = await supabase.auth.getUser();
+    if (error || !user) {
+      throw new Error("Сессия истекла. Выйдите и войдите снова под admin-email.");
+    }
+    email = user.email ?? null;
+  }
+
+  if (email?.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+    throw new Error(`Доступ только для ${ADMIN_EMAIL} (сейчас: ${email || "неизвестно"})`);
   }
 }
 

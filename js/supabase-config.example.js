@@ -8,7 +8,8 @@ window.SUPABASE_ANON_KEY = 'ВАШ_ANON_KEY';
 window.CRM_EDGE_FUNCTION = 'amocrm-submit';
 
 window.ADMIN_EMAIL = 'agent47podprikritiem@gmail.com';
-window.GENERATE_DESCRIPTION_FUNCTION = 'generate-product-description';
+window.AI_EDGE_FUNCTION = 'ai-chat';
+window.GENERATE_DESCRIPTION_FUNCTION = 'ai-chat';
 
 // Настройка Google OAuth в Supabase:
 // 1. Authentication → Providers → Google → Enable

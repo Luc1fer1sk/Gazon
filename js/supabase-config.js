@@ -13,11 +13,11 @@ window.CRM_EDGE_FUNCTION = 'dynamic-responder';
 // Для localhost оставьте пустым: ''
 window.SITE_BASE_PATH = '/Gazon/';
 
-// Имя Edge Function для AI-чата (смотри URL в Supabase → Edge Functions)
-window.AI_EDGE_FUNCTION = 'quick-worker';
+// Имя Edge Function для AI-чата и генерации описаний (имя в Supabase → Edge Functions)
+window.AI_EDGE_FUNCTION = 'ai-chat';
 
 // Email администратора (доступ к admin.html)
 window.ADMIN_EMAIL = 'agent47podprikritiem@gmail.com';
 
-// Генерация описания — через quick-worker (тот же Groq/Llama, что и AI-чат)
-window.GENERATE_DESCRIPTION_FUNCTION = 'quick-worker';
+// Генерация описания — та же функция ai-chat (режим product_description)
+window.GENERATE_DESCRIPTION_FUNCTION = 'ai-chat';
