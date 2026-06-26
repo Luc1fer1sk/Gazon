@@ -5,7 +5,8 @@ window.SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXB
 
 // amoCRM: токены хранятся в Supabase Secrets (см. CRM_SETUP.md).
 // Имя Edge Function для отправки заявок в amoCRM.
-window.CRM_EDGE_FUNCTION = 'amocrm-submit';
+// Должно совпадать с именем функции в Supabase → Edge Functions.
+window.CRM_EDGE_FUNCTION = 'dynamic-responder';
 
 // Путь сайта на GitHub Pages (обязательно для OAuth).
 // Репозиторий Gazon → /Gazon/
