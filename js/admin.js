@@ -2,55 +2,65 @@ const Admin = {
   products: [],
   editingId: null,
 
-  getGenerateFunctionNames() {
-    const primary = window.GENERATE_DESCRIPTION_FUNCTION || window.AI_EDGE_FUNCTION || 'ai-chat';
-    return [...new Set([primary, 'ai-chat'].filter(Boolean))];
+  getAiFunctionNames() {
+    return [...new Set([
+      window.AI_EDGE_FUNCTION,
+      'ai-chat',
+      'quick-worker'
+    ].filter(Boolean))];
   },
 
-  async parseInvokeError(error, data) {
-    if (data?.error) return data.error;
-    if (!error) return null;
-
-    try {
-      if (error.context && typeof error.context.json === 'function') {
-        const details = await error.context.json();
-        if (details?.error) return details.error;
-      }
-    } catch (_err) {
-      // ignore parse errors
-    }
-
-    return error.message || 'Ошибка Edge Function';
-  },
-
-  async invokeFunction(body) {
+  async requestAiChat(messages) {
     if (window.location.protocol === 'file:') {
       throw new Error('Откройте сайт через GitHub Pages (https://), не как локальный файл');
     }
 
-    const client = Auth.getClient();
-    if (!client) throw new Error('Supabase не настроен');
-
-    const { data: { session } } = await client.auth.getSession();
-    if (!session?.access_token) {
-      throw new Error('Войдите под admin-email перед генерацией');
-    }
-
-    const payload = { ...body, accessToken: session.access_token };
+    const payload = { messages };
     const errors = [];
 
-    for (const functionName of this.getGenerateFunctionNames()) {
-      const { data, error } = await client.functions.invoke(functionName, { body: payload });
+    for (const functionName of this.getAiFunctionNames()) {
+      const url = `${window.SUPABASE_URL}/functions/v1/${functionName}`;
 
-      if (!error && data?.description) {
-        return data;
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${window.SUPABASE_ANON_KEY}`,
+            apikey: window.SUPABASE_ANON_KEY,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.reply) return data.reply;
+        if (res.status === 404) {
+          errors.push(`Функция «${functionName}» не найдена`);
+          continue;
+        }
+        errors.push(data.error || `HTTP ${res.status} (${functionName})`);
+      } catch (err) {
+        errors.push(err.message || `Сеть (${functionName})`);
       }
 
-      const message = await this.parseInvokeError(error, data);
-      errors.push(message || `Ошибка функции «${functionName}»`);
+      const client = Auth.getClient();
+      if (client) {
+        try {
+          const { data, error } = await client.functions.invoke(functionName, { body: payload });
+          if (!error && data?.reply) return data.reply;
+          if (data?.error) errors.push(data.error);
+          else if (error?.message) errors.push(error.message);
+        } catch (err) {
+          errors.push(err.message || `invoke (${functionName})`);
+        }
+      }
     }
 
-    throw new Error(errors[0] || 'Не удалось вызвать Edge Function');
+    throw new Error(
+      errors.find((e) => e && !e.includes('Failed to send')) ||
+      errors[0] ||
+      'AI недоступен. Проверьте ai-chat в Supabase: JWT выключен, GROQ_API_KEY в Secrets.'
+    );
   },
 
   async requireAdmin() {
@@ -264,14 +274,15 @@ const Admin = {
     btn.textContent = 'Генерация...';
 
     try {
-      const data = await this.invokeFunction({
-        mode: 'product_description',
-        title,
-        brand: document.getElementById('field-brand').value.trim(),
-        category: document.getElementById('field-category').value
-      });
+      const brand = document.getElementById('field-brand').value.trim();
+      const category = document.getElementById('field-category').value;
+      const prompt =
+        `Напиши краткое описание товара для карточки интернет-магазина газона и удобрений. ` +
+        `2–3 предложения, только текст, без заголовков и списков.\n\n` +
+        `Название: ${title}\nБренд: ${brand || 'не указан'}\nКатегория: ${category}`;
 
-      document.getElementById('field-description').value = data.description || '';
+      const reply = await this.requestAiChat([{ role: 'user', content: prompt }]);
+      document.getElementById('field-description').value = (reply || '').trim();
     } catch (err) {
       alert(err.message || 'Не удалось сгенерировать описание');
     } finally {
